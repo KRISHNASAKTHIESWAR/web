@@ -8,10 +8,12 @@ export default function App() {
     name:'',issue:'',doctor:''
   });
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   // fetch
   const fetchData = async()=>{
     try{
-      const resp = await fetch('http://localhost:5000/show');
+      const resp = await fetch(`${API_URL}/show`);
       const data = await resp.json();
       setPatients(data);
     }
@@ -31,7 +33,7 @@ export default function App() {
   const handleSubmit = async(e)=>{
     e.preventDefault();
     try{
-      const resp = await fetch('http://localhost:5000/book',{
+      const resp = await fetch(`${API_URL}/book`,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify(formData),
