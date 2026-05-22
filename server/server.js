@@ -20,9 +20,16 @@ const db = sql.createConnection({
     }
 });
 
-db.connect((err)=>{
-    if(err)throw err;
-    console.log('MySQL connected');
+db.connect((err) => {
+    if (err) {
+        // We removed 'throw err' so the server STAYS ALIVE to print these logs!
+        console.error("❌ Database connection failed");
+        console.error("👉 Trying Host:", process.env.DB_HOST);
+        console.error("👉 Trying Port:", process.env.DB_PORT);
+        console.error("👉 Error details:", err.message);
+        return; 
+    }
+    console.log('✅MySQL connected');
 });
 
 app.get('/show',(req,res)=>{
